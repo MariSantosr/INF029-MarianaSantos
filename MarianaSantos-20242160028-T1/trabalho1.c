@@ -198,6 +198,14 @@ int q4(char *strTexto, char *strBusca, int posicoes[30])
 
 int q5(int num)
 {
+    int resto;
+    int numInvertido = 0;
+
+    while(num != 0){
+        resto = num % 10;                         
+        numInvertido = numInvertido * 10 + resto;    
+        num = num / 10;  
+    }
 
     return num;
 }
@@ -214,7 +222,34 @@ int q5(int num)
 
 int q6(int numerobase, int numerobusca)
 {
-    int qtdOcorrencias;
+    int qtdOcorrencias = 0;
+    char strBase[50];
+    char strBusca[50];
+    int i, j;
+    int ocorrencia;
+
+    
+    sprintf(strBase, "%d", numerobase);
+    sprintf(strBusca, "%d", numerobusca);
+    
+    int tamanhoBase = strlen(strBase);
+    int tamanhoBusca = strlen(strBusca);
+    
+     for (i = 0; i <= tamanhoBase - tamanhoBusca; i++) {
+        ocorrencia = 1; 
+
+        for (j = 0; j < tamanhoBusca; j++) {
+            if (strBase[i + j] != strBusca[j]) {
+                ocorrencia = 0; 
+                break;
+            }
+        }
+
+        if (ocorrencia) 
+            qtdOcorrencias++;
+    
+    }
+
     return qtdOcorrencias;
 }
 
