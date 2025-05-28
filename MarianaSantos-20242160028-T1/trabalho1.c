@@ -140,22 +140,71 @@ int teste(int a)
     Não utilizar funções próprias de string (ex: strtok)   
     pode utilizar strlen para pegar o tamanho da string
  */
-int q1(char data[])
-{
-  int datavalida = 1;
+int validarFormatoEDigitos(const char *data) {
+    int i = 0;
+    int etapa = 0;
+    int digitoDia = 0;
+    int digitoMes = 0;
+    int digitoAno = 0;
 
-  //quebrar a string data em strings sDia, sMes, sAno
+    while (data[i] != '\0' && data[i] != '\n') {
+        if (etapa == 0) {
+            if (data[i] >= '0' && data[i] <= '9') digitoDia++;
+            else if (data[i] == '/') etapa++;
+            else return 0;
+        }
+        else if (etapa == 1) {
+            if (data[i] >= '0' && data[i] <= '9') digitoMes++;
+            else if (data[i] == '/') etapa++;
+            else return 0;
+        }
+        else if (etapa == 2) {
+            if (data[i] >= '0' && data[i] <= '9') digitoAno++;
+            else return 0;
+        }
+        i++;
+    }
 
-
-  //printf("%s\n", data);
-
-  if (datavalida)
-      return 1;
-  else
-      return 0;
+    return (digitoDia >= 1 && digitoDia <= 2) &&
+           (digitoMes >= 1 && digitoMes <= 2) &&
+           (digitoAno == 2 || digitoAno == 4);
 }
 
 
+int validarData(int dia, int mes, int ano) {
+    if(dia < 1 || dia > 31 || mes < 1 || mes > 12){
+        return 0;
+    }
+    if(mes == 2) {
+       int bissexto = (ano % 4 == 0 && (ano % 100 != 0 || ano % 400 == 0));
+        if (bissexto && dia <= 29) return 1;
+        else if (!bissexto && dia <= 28) return 1;
+        else return 0;
+    }
+    if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+        return dia <= 30;
+    }
+    return dia <= 31;
+}
+
+int q1(char data[])
+{
+   int datavalida = 1;
+    if(!validarFormatoEDigitos(data)) {
+        return 0;
+    }
+    DataQuebrada dq = quebraData(data);
+    if(!dq.valido) {
+        return 0;
+}
+
+if(!validarData(dq.iDia, dq.iMes, dq.iAno)) {
+return 0;
+}
+
+return 1;
+  
+}
 
 /*
  Q2 = diferença entre duas datas
@@ -173,27 +222,47 @@ int q1(char data[])
  */
 DiasMesesAnos q2(char datainicial[], char datafinal[])
 {
-
-    //calcule os dados e armazene nas três variáveis a seguir
     DiasMesesAnos dma;
-
-    if (q1(datainicial) == 0){
-      dma.retorno = 2;
-      return dma;
-    }else if (q1(datafinal) == 0){
-      dma.retorno = 3;
-      return dma;
-    }else{
-      //verifique se a data final não é menor que a data inicial
-      
-      //calcule a distancia entre as datas
-
-
-      //se tudo der certo
-      dma.retorno = 1;
-      return dma;
-      
+    
+    if(q1(datainicial) == 0) {
+        dma.retorno = 2;
+        return dma;
     }
+    if(q1(datafinal) == 0) {
+        dma.retorno = 3;
+        return dma;
+    }
+    
+    DataQuebrada ini = quebraData(datainicial);
+    DataQuebrada fim = quebraData(datafinal);
+    
+   
+    if ((ini.iAno > fim.iAno) ||
+    (ini.iAno == fim.iAno && ini.iMes > fim.iMes) ||
+    (ini.iAno == fim.iAno && ini.iMes == fim.iMes && ini.iDia > fim.iDia)) {
+    dma.retorno = 4;
+    return dma;
+}
+    int diferencaDia = fim.iDia - ini.iDia;
+    int diferencaMes = fim.iMes - ini.iMes;
+    int diferencaAno = fim.iAno - ini.iAno;
+    
+    if(diferencaDia < 0) {
+        diferencaDia += 30;
+        diferencaMes--;
+    }
+    
+    if(diferencaMes < 0) {
+        diferencaMes += 12;
+        diferencaAno--;
+    }
+    
+    dma.qtdDias = diferencaDia;
+    dma.qtdMeses = diferencaMes;
+    dma.qtdAnos = diferencaAno;
+    dma.retorno = 1;
+    
+    return dma;
     
 }
 
