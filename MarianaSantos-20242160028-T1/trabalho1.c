@@ -260,8 +260,8 @@ DiasMesesAnos q2(char datainicial[], char datafinal[])
     dma.qtdDias = diferencaDia;
     dma.qtdMeses = diferencaMes;
     dma.qtdAnos = diferencaAno;
+
     dma.retorno = 1;
-    
     return dma;
     
 }
