@@ -12,6 +12,7 @@ double numDouble;
 
 //ponteiros 
 
+
 printf("Digite um numero inteiro: ");
 scanf("%d", &num);
 getchar();
