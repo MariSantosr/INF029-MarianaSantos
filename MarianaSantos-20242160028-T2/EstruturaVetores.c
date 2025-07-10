@@ -176,14 +176,12 @@ int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
 }
 
 // se posição é um valor válido {entre 1 e 10}
-int ehPosicaoValida(int posicao)
-{
+int ehPosicaoValida(int posicao) {
     int retorno = 0;
-    if (posicao < 1 || posicao > 10)
-    {
+    
+    if (posicao > TAM || posicao < 1) {
         retorno = POSICAO_INVALIDA;
-    }
-    else
+    } else
         retorno = SUCESSO;
 
     return retorno;
@@ -197,8 +195,7 @@ Retorno (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosEstruturaAuxiliar(int posicao, int vetorAux[])
-{
+int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
 
     int retorno = 0;
 
