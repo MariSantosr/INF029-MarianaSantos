@@ -476,7 +476,12 @@ Objetivo: inicializa o programa. deve ser chamado ao inicio do programa
 
 void inicializar() {
 
+    int i;
     
+    for (i = 0; i < TAM; i++) {
+        vetorPrincipal[i] = NULL;
+    }
+
 }
 
 /*
@@ -486,6 +491,16 @@ para poder liberar todos os espaços de memória das estruturas auxiliares.
 */
 
 void finalizar() {
+
+    int i;
+    
+    for (i = 0; i < TAM; i++) {
+        if (vetorPrincipal[i] != NULL) {
+            free(vetorPrincipal[i]->elementos); 
+            free(vetorPrincipal[i]);           
+            vetorPrincipal[i] = NULL;
+        }
+    }
 
 
 }
