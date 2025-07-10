@@ -227,13 +227,25 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[])
-{
+int getDadosOrdenadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
 
-    int retorno = 0;
-
+    if (ehPosicaoValida(posicao) == POSICAO_INVALIDA) {
+        return POSICAO_INVALIDA;
+    }
     
-    return retorno;
+    int estruturaIndice = posicao - 1;
+    
+    if (vetorPrincipal[estruturaIndice] == NULL)
+        return SEM_ESTRUTURA_AUXILIAR;
+
+    EstruturaAuxiliar *auxiliar = vetorPrincipal[estruturaIndice];
+    if (auxiliar->qtdeOcupadas == 0)
+        return ESTRUTURA_AUXILIAR_VAZIA;
+
+    memcpy(vetorAux, auxiliar->elementos, auxiliar->qtdeOcupadas * sizeof(int));
+    qsort(vetorAux, auxiliar->qtdeOcupadas, sizeof(int), compararDados);
+
+    return SUCESSO;
 }
 
 /*
