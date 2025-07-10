@@ -196,11 +196,25 @@ Retorno (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
 int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
+    if (ehPosicaoValida(posicao) == POSICAO_INVALIDA) {
+        return POSICAO_INVALIDA;
+    }
 
-    int retorno = 0;
+    int estruturaIndice = posicao - 1;
+    int i;
 
-    return retorno;
+    if (vetorPrincipal[estruturaIndice] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    EstruturaAuxiliar *auxiliar = vetorPrincipal[estruturaIndice];
+    for (i = 0; i < auxiliar->qtdeOcupadas; i++) {
+        vetorAux[i] = auxiliar->elementos[i];
+    }
+
+    return SUCESSO;
 }
+
 
 /*
 Objetivo: retorna os números ordenados da estrutura auxiliar da posição 'posicao (1..10)'.
