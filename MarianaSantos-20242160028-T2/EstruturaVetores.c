@@ -215,7 +215,9 @@ int getDadosEstruturaAuxiliar(int posicao, int vetorAux[]) {
     return SUCESSO;
 }
 
-
+int compararDados(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+} 
 /*
 Objetivo: retorna os números ordenados da estrutura auxiliar da posição 'posicao (1..10)'.
 os números devem ser armazenados em vetorAux
