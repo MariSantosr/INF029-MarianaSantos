@@ -284,11 +284,24 @@ Rertono (int)
     SUCESSO - recuperado com sucesso os valores da estrutura na posição 'posicao'
     TODAS_ESTRUTURAS_AUXILIARES_VAZIAS - todas as estruturas auxiliares estão vazias
 */
-int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[])
-{
+int getDadosOrdenadosDeTodasEstruturasAuxiliares(int vetorAux[]) {
 
-    int retorno = 0;
-    return retorno;
+    int resultadoOrdenacao = getDadosDeTodasEstruturasAuxiliares(vetorAux);
+    int i;
+    int total;
+
+    if (resultadoOrdenacao == SUCESSO) {
+        total = 0;
+        for (i = 0; i < TAM; i++) {
+            if (vetorPrincipal[i] != NULL) {
+                total += vetorPrincipal[i]->qtdeOcupadas;
+            }
+        }
+        qsort(vetorAux, total, sizeof(int), compararDados);
+    }
+
+    return resultadoOrdenacao;
+
 }
 
 /*
@@ -302,11 +315,10 @@ Rertono (int)
     NOVO_TAMANHO_INVALIDO - novo tamanho não pode ser negativo
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
-int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho)
-{
+int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
 
-    int retorno = 0;
-    return retorno;
+
+    
 }
 
 /*
