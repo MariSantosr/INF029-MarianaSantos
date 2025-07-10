@@ -25,20 +25,38 @@ Rertono (int)
     TAMANHO_INVALIDO - o tamanho deve ser maior ou igual a 1
 */
 int criarEstruturaAuxiliar(int posicao, int tamanho) {
+    //condicional para verificar se a posição existe na estrutura 
+    if (posicao > TAM || posicao < 1) {
+        return POSICAO_INVALIDA;
+    }
 
-    int retorno = 0;
-    // a posicao pode já existir estrutura auxiliar
-    retorno = JA_TEM_ESTRUTURA_AUXILIAR;
-    // se posição é um valor válido {entre 1 e 10}
-    retorno = POSICAO_INVALIDA;
-    // o tamanho ser muito grande
-    retorno = SEM_ESPACO_DE_MEMORIA;
-    // o tamanho nao pode ser menor que 1
-    retorno = TAMANHO_INVALIDO;
-    // deu tudo certo, crie
-    retorno = SUCESSO;
+    int estruturaIndice = posicao - 1;
 
-    return retorno;
+    if (vetorPrincipal[estruturaIndice] != NULL) {
+        return JA_TEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if (tamanho < 1) {
+        return TAMANHO_INVALIDO;
+    }
+
+    EstruturaAuxiliar *estruturaNova = (EstruturaAuxiliar *) malloc(sizeof(EstruturaAuxiliar));
+    if (estruturaNova == NULL) {
+        return SEM_ESPACO_DE_MEMORIA; 
+    }
+    
+    estruturaNova->elementos = (int *) malloc(tamanho * sizeof(int));
+    if (estruturaNova->elementos == NULL) {
+        free(estruturaNova--);
+        return SEM_ESPACO_DE_MEMORIA;
+    }
+    
+    estruturaNova->tamanhoAlocado = tamanho; 
+    estruturaNova->qtdeOcupadas = 0;
+
+    vetorPrincipal[estruturaIndice] = estruturaNova;
+
+    return SUCESSO; 
 }
 
 /*
