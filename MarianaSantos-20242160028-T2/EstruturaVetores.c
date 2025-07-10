@@ -316,9 +316,44 @@ Rertono (int)
     SEM_ESPACO_DE_MEMORIA - erro na alocação do novo valor
 */
 int modificarTamanhoEstruturaAuxiliar(int posicao, int novoTamanho) {
-
-
+    //verifica de a posição indicada existe ou tá disponível
+    if (ehPosicaoValida(posicao) == POSICAO_INVALIDA) {
+        return POSICAO_INVALIDA;
+    }
     
+    int estruturaIndice = posicao - 1;
+    EstruturaAuxiliar *auxiliar = vetorPrincipal[estruturaIndice];
+
+    if (auxiliar == NULL) {
+        
+        return SEM_ESTRUTURA_AUXILIAR;
+        
+    }
+
+    int tamanhoFinal = auxiliar->tamanhoAlocado + novoTamanho;
+
+    if (tamanhoFinal < 1) {
+        
+        return NOVO_TAMANHO_INVALIDO;
+        
+    }
+
+    int *novoArray = realloc(auxiliar->elementos, tamanhoFinal * sizeof(int));
+    
+    if (novoArray == NULL) {
+        
+        return SEM_ESPACO_DE_MEMORIA;
+        
+    }
+
+    auxiliar->elementos = novoArray;
+    auxiliar->tamanhoAlocado = tamanhoFinal;
+
+    if (auxiliar->qtdeOcupadas > tamanhoFinal)
+        auxiliar->qtdeOcupadas = tamanhoFinal;
+
+    return SUCESSO;
+
 }
 
 /*
