@@ -391,10 +391,45 @@ Retorno (No*)
     NULL, caso não tenha nenhum número nas listas
     No*, ponteiro para o início da lista com cabeçote
 */
-No *montarListaEncadeadaComCabecote()
-{
+No *montarListaEncadeadaComCabecote() {
 
-    return NULL;
+    No *cabecote = (No *) malloc(sizeof(No));
+    if (!cabecote)
+        return NULL;
+
+    cabecote->prox = NULL;
+    
+    No *atualNo = cabecote;
+    
+    int achouElementos = 0;
+    
+    int i, j;
+
+    for (i = 0; i < TAM; i++) {
+        EstruturaAuxiliar *estrutura = vetorPrincipal[i];
+        if (estrutura && estrutura->qtdeOcupadas > 0) {
+            for (j = 0; j < estrutura->qtdeOcupadas; j++) {
+                No *novo = (No *) malloc(sizeof(No));
+                if (!novo) {
+                    destruirListaEncadeadaComCabecote(&cabecote);
+                    return NULL;
+                }
+                novo->conteudo = estrutura->elementos[j];
+                novo->prox = NULL;
+                atualNo->prox = novo;
+                atualNo = novo;
+                achouElementos = 1;
+            }
+        }
+    }
+
+    if (!achouElementos) {
+        free(cabecote);
+        return NULL;
+    }
+
+    return cabecote;
+
 }
 
 /*
