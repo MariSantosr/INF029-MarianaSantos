@@ -1,10 +1,17 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #define TAM 10
 
 #include "EstruturaVetores.h"
 
-int vetorPrincipal[TAM];
+typedef struct {
+    int qtdeOcupadas;
+    int tamanhoAlocado;
+    int *elementos;
+} EstruturaAuxiliar;
+
+EstruturaAuxiliar *vetorPrincipal[TAM];
 
 /*
 Objetivo: criar estrutura auxiliar na posição 'posicao'.
@@ -17,8 +24,7 @@ Rertono (int)
     SEM_ESPACO_DE_MEMORIA - Sem espaço de memória
     TAMANHO_INVALIDO - o tamanho deve ser maior ou igual a 1
 */
-int criarEstruturaAuxiliar(int posicao, int tamanho)
-{
+int criarEstruturaAuxiliar(int posicao, int tamanho) {
 
     int retorno = 0;
     // a posicao pode já existir estrutura auxiliar
