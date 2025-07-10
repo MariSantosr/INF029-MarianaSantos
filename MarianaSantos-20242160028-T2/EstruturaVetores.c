@@ -101,10 +101,26 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int excluirNumeroDoFinaldaEstrutura(int posicao)
-{
-    int retorno = SUCESSO;
-    return retorno;
+int excluirNumeroDoFinaldaEstrutura(int posicao){
+    //condicional para verificar se a posição existe na estrutura 
+    if (posicao > TAM || posicao < 1) {
+        return POSICAO_INVALIDA;
+    }
+
+    int estruturaIndice = posicao - 1; 
+    EstruturaAuxiliar *auxiliar = vetorPrincipal[estruturaIndice];
+
+    if (vetorPrincipal[estruturaIndice] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if (auxiliar->qtdeOcupadas == 0) {
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+
+    auxiliar->qtdeOcupadas--;
+        
+    return SUCESSO;
 }
 
 /*
