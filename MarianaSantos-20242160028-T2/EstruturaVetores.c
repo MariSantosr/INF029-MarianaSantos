@@ -446,6 +446,7 @@ void getDadosListaEncadeadaComCabecote(No *inicio, int vetorAux[]){
         vetorAux[i++] = atualNo->conteudo;
         atualNo = atualNo->prox;
     }
+    
 }
 
 /*
