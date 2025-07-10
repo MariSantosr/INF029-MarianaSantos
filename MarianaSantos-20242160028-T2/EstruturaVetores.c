@@ -68,37 +68,26 @@ Rertono (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 CONSTANTES
 */
-int inserirNumeroEmEstrutura(int posicao, int valor)
-{
-    int retorno = 0;
-    int existeEstruturaAuxiliar = 0;
-    int temEspaco = 0;
-    int posicao_invalida = 0;
+int inserirNumeroEmEstrutura(int posicao, int valor) {
+    //condicional para verificar se a posição existe na estrutura 
+    if (posicao > TAM || posicao < 1) {
+        return POSICAO_INVALIDA;
+    }
+    
+    int estruturaIndice = posicao - 1;
+    EstruturaAuxiliar *auxiliar = vetorPrincipal[estruturaIndice];
 
-    if (posicao_invalida)
-        retorno = POSICAO_INVALIDA;
-    else
-    {
-        // testar se existe a estrutura auxiliar
-        if (existeEstruturaAuxiliar)
-        {
-            if (temEspaco)
-            {
-                //insere
-                retorno = SUCESSO;
-            }
-            else
-            {
-                retorno = SEM_ESPACO;
-            }
-        }
-        else
-        {
-            retorno = SEM_ESTRUTURA_AUXILIAR;
-        }
+    if (vetorPrincipal[estruturaIndice] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
     }
 
-    return retorno;
+    if (auxiliar->qtdeOcupadas < auxiliar->tamanhoAlocado) {
+        auxiliar->elementos[auxiliar->qtdeOcupadas] = valor;
+        auxiliar->qtdeOcupadas++;
+        return SUCESSO;
+    } else {
+        return SEM_ESPACO;
+    }
 }
 
 /*
