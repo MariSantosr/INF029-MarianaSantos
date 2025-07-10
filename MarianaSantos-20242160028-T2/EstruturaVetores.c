@@ -101,7 +101,7 @@ Rertono (int)
     SEM_ESTRUTURA_AUXILIAR - Não tem estrutura auxiliar
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 */
-int excluirNumeroDoFinaldaEstrutura(int posicao){
+int excluirNumeroDoFinaldaEstrutura(int posicao) {
     //condicional para verificar se a posição existe na estrutura 
     if (posicao > TAM || posicao < 1) {
         return POSICAO_INVALIDA;
@@ -136,10 +136,43 @@ Rertono (int)
     POSICAO_INVALIDA - Posição inválida para estrutura auxiliar
 
 */
-int excluirNumeroEspecificoDeEstrutura(int posicao, int valor)
-{
-    int retorno = SUCESSO;
-    return retorno;
+int excluirNumeroEspecificoDeEstrutura(int posicao, int valor) {
+    //condicional para verificar se a posição existe na estrutura 
+    if (posicao > TAM || posicao < 1) {
+        return POSICAO_INVALIDA;
+    }
+       
+    int estruturaIndice = posicao - 1;
+    EstruturaAuxiliar *auxiliar = vetorPrincipal[estruturaIndice];
+    int achou = 0;
+    int i, j;
+
+    if (vetorPrincipal[estruturaIndice] == NULL) {
+        return SEM_ESTRUTURA_AUXILIAR;
+    }
+
+    if (auxiliar->qtdeOcupadas == 0) {
+        return ESTRUTURA_AUXILIAR_VAZIA;
+    }
+
+    for (i = 0; i < auxiliar->qtdeOcupadas; i++) {
+        if (auxiliar->elementos[i] == valor) {
+            achou = 1;
+            break; 
+        }
+    }
+
+    if (!achou) {
+        return NUMERO_INEXISTENTE; 
+    }
+
+    for (j = i; j < auxiliar->qtdeOcupadas - 1; j++) {
+        auxiliar->elementos[j] = auxiliar->elementos[j+1];
+    }
+
+    auxiliar->qtdeOcupadas--;
+
+    return SUCESSO;
 }
 
 // se posição é um valor válido {entre 1 e 10}
