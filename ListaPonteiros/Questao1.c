@@ -10,7 +10,12 @@ char texto[TAM];
 float numDecimal;
 double numDouble;
 
-//ponteiros 
+//ponteiros das variaveis
+int *ptrNum = &num;
+char *prtLetra = &letra;
+char *ptrTexto = texto;
+float *ptrnumFloat = &numDecimal;
+double *ptrNumDouble = &numDouble;
 
 
 printf("Digite um numero inteiro: ");
@@ -40,6 +45,12 @@ printf("Numero float: %.2f\n", numDecimal);
 printf("Numero double: %.2lf\n", numDouble);
 
 //Saída com ponteiro
+printf("\n--- Dados lidos com ponteiro ---\n");
+printf("Numero inteiro: %d\n", *ptrNum);
+printf("Letra: %c\n", *prtLetra);
+printf("Texto: %s", ptrTexto);
+printf("Numero float: %.2f\n", *ptrnumFloat);
+printf("Numero double: %.2lf\n", *ptrNumDouble);
 
 return 0;
 
